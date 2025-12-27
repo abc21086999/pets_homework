@@ -1,7 +1,7 @@
 import { test as setup, expect } from '@playwright/test';
 import { STORAGE_STATE } from '../playwright.config';
-import { LoginPage } from '../pages/loginpage';
-import { HomePage } from '../pages/homepage';
+import  LoginPage  from '../pages/loginpage';
+import  HomePage  from '../pages/homepage';
 
 setup('authenticate with manual OTP', async ({ page }) => {
   // 設定超長 Timeout (例如 5 分鐘)，給你足夠時間收信、輸入驗證碼
@@ -17,7 +17,7 @@ setup('authenticate with manual OTP', async ({ page }) => {
   console.log('2. 輸入 Email (請確認你的測試帳號不需要密碼，或是接下來要手動輸)...');
   // 假設你的 loginPage.login 只有填 email 和點擊送出
   // 如果流程是：填 Email -> 按下一步 -> 出現驗證碼框
-  await loginPage.login('abc21086999@gmail.com');
+  await loginPage.emailLogin('abc21086999@gmail.com');
   await loginPage.verificationInput.click(); 
 
   // -----------------------------------------------------
@@ -29,7 +29,6 @@ setup('authenticate with manual OTP', async ({ page }) => {
   console.log('程式正在等待網頁跳轉回首頁 (或偵測到登入成功的標誌)...');
 
   await page.waitForURL(/.*dogcatstar\.com.*no-cache.*/, { timeout: 0 })
-  // 上面這行意思是：給你 120 秒的時間手動操作，直到程式看到「登出按鈕」出現為止
 
   // -----------------------------------------------------
   //          手動介入結束，程式接手

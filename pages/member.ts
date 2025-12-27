@@ -1,22 +1,12 @@
 import { type Locator, type Page } from '@playwright/test';
 
-export class HomePage {
+export default class MemberPage {
   readonly page: Page;
-  readonly loginButton: Locator;
+  readonly memberID: Locator;
 
   constructor(page: Page) {
     this.page = page;
-
-    this.loginButton = page.getByTitle("我的帳號"); 
-  }
-
-  async goto() {
-    await this.page.goto('/');
-  }
-
-  async clickLogin() {
-    await this.loginButton.click();
+    this.memberID = page.getByText('#379225'); 
   }
 }
 
-export default HomePage;
