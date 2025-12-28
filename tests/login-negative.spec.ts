@@ -9,6 +9,7 @@ test.describe('會員登入驗證 - 反向流程', () => {
         const homePage = new HomePage(page);
         await homePage.goto();
         await homePage.clickLogin();
+        test.setTimeout(30000);
     });
 
     test('E2E-002: 使用者輸入錯誤手機號碼會顯示錯誤訊息', async ({page}) => {
@@ -16,7 +17,7 @@ test.describe('會員登入驗證 - 反向流程', () => {
 
         console.log('使用錯誤的手機號碼進行登入');
         await loginPage.phoneLogin('0');
-        expect(await loginPage.phoneLoginErrorMessage.isVisible());
+        await expect(loginPage.phoneLoginErrorMessage).toBeVisible();
 
     });
 
@@ -24,9 +25,12 @@ test.describe('會員登入驗證 - 反向流程', () => {
     const loginPage = new LoginPage(page);
 
     console.log('使用看似正常的手機號碼進行登入');
-    await loginPage.phoneLogin('0987987987');
-    await loginPage.verificationInput.fill('000000');
-    expect(await loginPage.loginVerificationErrorMessage.isVisible());
+    await loginPage.phoneLogin('0900000000');
+    await loginPage.verificationInput.click();
+    for (let i = 0; i < 6; i++){
+        await page.keyboard.press('0');
+    }
+    await expect(loginPage.loginVerificationErrorMessage).toBeVisible();
 
     });
 
@@ -35,7 +39,7 @@ test.describe('會員登入驗證 - 反向流程', () => {
 
     console.log('使用錯誤的Email進行登入');
     await loginPage.emailLogin('000');
-    expect(await loginPage.emailLoginErrorMessage.isVisible());
+    await expect(loginPage.emailLoginErrorMessage).toBeVisible();
 
     });
 
@@ -43,9 +47,12 @@ test.describe('會員登入驗證 - 反向流程', () => {
     const loginPage = new LoginPage(page);
 
     console.log('使用看似正常的Email進行登入');
-    await loginPage.emailLogin('aa.bb@gmail.com');
-    await loginPage.verificationInput.fill('000000');
-    expect(await loginPage.loginVerificationErrorMessage.isVisible());
+    await loginPage.emailLogin('aa.bb@mail.com');
+    await loginPage.verificationInput.click();
+    for (let i = 0; i < 6; i++){
+        await page.keyboard.press('9');
+    }
+    await expect(loginPage.loginVerificationErrorMessage).toBeVisible();
 
     });
 });

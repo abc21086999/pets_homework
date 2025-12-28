@@ -22,7 +22,7 @@ export default class LoginPage {
     this.emailSubmitBtn = page.getByRole('button', { name: '確認', exact: true });
     this.phoneSubmitBtn = page.getByRole('button', { name: '登入/註冊', exact: true });
     this.phoneLoginErrorMessage = page.getByText('手機號碼格式錯誤');
-    this.loginVerificationErrorMessage = page.getByText('驗證碼輸入錯誤！');
+    this.loginVerificationErrorMessage = page.getByText('驗證碼過期，請重新傳送驗證碼！');
     this.emailLoginErrorMessage = page.getByText('Email 格式錯誤！');
 
 
